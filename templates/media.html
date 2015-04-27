@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<style type="text/css">
+.ft table, tr, td
+{
+	background-color: #f6f6f6;
+}
+.ft td
+{
+	padding: 5px;
+	
+}
+.ft .ft1 td
+{
+	background-color: #ddd;
+	
+}
+</style>
+<div id="content">
+	<div class="container">
+
+	<div style="margin-top: 33px">
+		<h1 style="padding-bottom: 20px">{{ _('Media') }} / <a href="/media?upload=1">{{ _('Upload') }}</a></h1>
+		<table cellpadding="4" cellspacing="2" class="ft" width="100%">
+		<tr class="ft1">
+			<td width="60"><h1>{{ _('ID') }}</h1></td>
+			<td><h1>{{ _('Filename') }}</h1></td>
+			<td width="100"><h1>{{ _('Size') }}</h1></td>
+			<td width="150"><h1>{{ _('Content-Type') }}</h1></td>
+			<td width="20"><h1>{{ _('Delete') }}</h1></td>
+		</tr>
+		{% for file in files %}
+		<tr>
+		<td><b><a href="/file/{{file.key().id()}}" target="_blank">{{file.key().id()}}</a></b></td>
+		<td>{{escape(file.filename)}}</td>
+		<td>{{file.size}}</td>
+		<td>{{file.content_type}}</td>
+		<td style="text-align: center; font-weight: bold;"><a href="/media/delete?id={{file.key().id()}}">X</a></td>
+		</tr>
+		{% end %}
+		</table>
+	</div>
+	
+	{% if cursor %}
+	<div style="margin-top: 20px">
+		<a href="/media?cursor={{cursor}}">{{_('Next page')}}</a>
+	</div>
+	{% end %}
+	</div>
+</div>
+
+{% end %}
+

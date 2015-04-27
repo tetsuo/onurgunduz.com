@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+{% set date_format = "%Y-%m-%dT%H:%M:%SZ" %}
+{% set title = handler.application.settings["title"] %}
+{% set author = handler.application.settings["author"] %}
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en">
+  <title type="text">{{ escape(title) }}</title>
+  <id>{{ escape(handler.request.full_url()) }}</id>
+  <updated>{{ max(e.updated for e in entries).strftime(date_format) }}</updated>
+  <link rel="alternate" href="http://{{ handler.request.host + handler.request.path }}" title="{{ escape(title) }}" type="text/html"/>
+  <link rel="self" href="http://{{ handler.request.host }}/feed" title="{{ escape(title) }}" type="application/atom+xml"/>
+  <link rel="hub" href="http://pubsubhubbub.appspot.com/"/>
+  {% for entry in entries %}
+    <entry>
+      <id>tag:{{ handler.request.host }},{{ entry.published.strftime("%Y-%m-%d") }}:/blog/{{ entry.key().name() }}</id>
+      <link href="http://{{ handler.request.host + "/blog/" + entry.key().name() }}" rel="alternate" type="text/html"/>
+      <title type="text">{{ escape(entry.title) }}</title>
+      <updated>{{ entry.updated.strftime(date_format) }}</updated>
+      <published>{{ entry.published.strftime(date_format) }}</published>
+      <author><name>{{ escape(author) }}</name></author>
+      <content type="html">{{ escape(entry.body_html) }}</content>
+      {% for tag in entry.tags %}
+        <category term="{{ escape(tag) }}"></category>
+      {% end %}
+      {% for thumbnail in entry.parse_thumbnails() %}
+		<media:content url="{{ escape(thumbnail["url"]) }}">
+		  <media:thumbnail url="{{ escape(thumbnail["url"]) }}" width="{{ escape(thumbnail["width"]) }}" height="{{ escape(thumbnail["height"]) }}"></media:thumbnail>
+		</media:content>
+	  {% end %}
+    </entry>
+  {% end %}
+</feed>

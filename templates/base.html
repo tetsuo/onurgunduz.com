@@ -1,0 +1,70 @@
+<html>
+
+<head>
+  <title>{% block title %}{{ escape(handler.settings["title"]) }}{% end %}</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/png"/>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  {% block head_alternate %}
+  <link rel="alternate" href="/feed" type="application/atom+xml" title="{{ escape(handler.settings["title"]) }}"/>
+  {% end %}
+  <link rel="stylesheet" type="text/css" media="all" href="{{ static_url('base.css') }}" />
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="{{ escape(handler.settings["title"]) }} Search"/>
+  {% block head_extra %}
+  <meta name="title" content="{{ escape(handler.settings["title"]) }}" />
+  <meta name="description" content="{{ escape(handler.settings["description"]) }}" />
+  {% end %}
+</head>
+
+<body>
+
+<div id="wrap">
+
+  <div id="header">
+    <div class="container">
+      <div class="i">
+        <div class="logo">&mdash;</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="menu">
+    <div class="container">
+      <div class="g">	
+        <a href="/blog">blog</a> /
+        <a href="/about">about</a>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="diag1"><div class="diag2"></div></div>
+
+  {% block content %}{% end %}
+
+  <div id="footer">
+    <div class="container">
+      &mdash;<a href="https://github.com/tetsuo/onurgunduz.com">Source</a>
+      {% if current_user %}&mdash;<a href="/new">{{ _('Publish') }}</a> / <a href="/media">{{ _('Media') }}</a> / <a href="/logout">{{ _('Logout') }}</a>{% end %}
+    </div>
+  </div>
+
+</div>
+
+{% block bottom %}{% end %}
+
+{% if not handler.settings.get("debug") %}
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1238030-3']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+{% end %}
+
+</body>
+</html>

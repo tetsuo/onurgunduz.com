@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="content">
+	<div class="container about">
+    <p>Hi, I'm Onur Gunduz. I'm a computer programmer. My hometown is Ankara, but I live near Antalya now.</p>
+
+    <p>See you on <a href="https://github.com/tetsuo">Github</a>, <a href="https://twitter.com/nthonur">Twitter</a> or Freenode (ovef).</p>
+    <p>ogunduz@gmail.com <br><a href="/static/key.asc">gpg public key</a></p>
+	</div>
+</div>
+{% end %}
+
+{% block title %}about &mdash; {{ escape(handler.settings['title']) }}{% end %}

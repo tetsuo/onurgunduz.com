@@ -1,0 +1,19 @@
+{% extends "entries.html" %}
+
+{% block title %}
+    {{ escape(entries[0].title) }} &mdash; {{ escape(handler.settings['title']) }}
+{% end %}
+
+{% block above_content %}
+	<div class="row1 pagin"><div class="container">
+		<a href="/blog">{{_('Back')}}</a>
+	</div></div>
+{% end %}
+
+{% block below_content %}{% end %}
+{% block entry_class %}e-full{% end %}
+
+{% block head_extra %}
+<meta name="title" content="{{ escape(entries[0].title) }} &mdash; {{ escape(handler.settings["title"]) }}" />
+<meta name="description" content="{{ escape(entries[0].title) }}" />
+{% end %}

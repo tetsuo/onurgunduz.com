@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	{% block above_content %}
+		<div class="row1 pagin"><div class="container">
+			<a href="/tag/{{escape(_tag)}}">{{ _('Entries tagged with ') + escape(_tag) }}</a>
+		</div></div>
+	{% end %}
+	<div id="content" class="blog">
+	<div class="container">
+		
+		{% for entry in entries %}
+		<div class="entry {% block entry_class %}{% end %}" id="e-{{ entry.key().name() }}">
+			<h1 class="y"><a href="/blog/{{ entry.key().name() }}">{{ escape(entry.title) }}</a></h1>
+			<div class="date y">{{ locale.format_date(entry.published, full_format=True, shorter=True) }}{% if entry.tags %} &mdash; {{ locale.list(['<a href="/tag/%(tag)s">%(escaped_tag)s</a>' % {"tag": tag, "escaped_tag": escape(tag)} for tag in sorted(entry.tags)]) }}{% end %}</div>
+		</div>
+		{% end %}
+	
+	</div>
+	</div>
+	
+{% end %}
+
+{% block title %}{{ escape(_tag) }} &mdash; {{ escape(handler.settings['title']) }}{% end %}
+{% block head_alternate %}
+<link rel="alternate" href="{{ request.path }}?format=atom" type="application/atom+xml" title="{{ escape(_tag) }} - {{ escape(handler.settings["title"]) }}"/>
+{% end %}
