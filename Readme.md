@@ -20,7 +20,11 @@ Then type `dev_appserver.py .` to start a development server.
 
 # deploy
 
-Use the [admin console](https://appengine.google.com) to create a project, then you can deploy the application with `appcfg.py -A <your-project-id> --oauth2 update .`.
+Use the [admin console](https://appengine.google.com) to create a project, then you can deploy the application with:
+
+```
+appcfg.py -A <your-project-id> --oauth2 update .
+```
 
 # license
 
