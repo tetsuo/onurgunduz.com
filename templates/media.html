@@ -8,26 +8,25 @@
 .ft td
 {
 	padding: 5px;
-	
+
 }
 .ft .ft1 td
 {
 	background-color: #ddd;
-	
+
 }
 </style>
-<div id="content">
-	<div class="container">
+<div class="single-col-grid content">
 
-	<div style="margin-top: 33px">
-		<h1 style="padding-bottom: 20px">{{ _('Media') }} / <a href="/media?upload=1">{{ _('Upload') }}</a></h1>
+	<div class="col">
+		<h1>Files / <a href="/media?upload=1">Upload</a></h1>
 		<table cellpadding="4" cellspacing="2" class="ft" width="100%">
 		<tr class="ft1">
-			<td width="60"><h1>{{ _('ID') }}</h1></td>
-			<td><h1>{{ _('Filename') }}</h1></td>
-			<td width="100"><h1>{{ _('Size') }}</h1></td>
-			<td width="150"><h1>{{ _('Content-Type') }}</h1></td>
-			<td width="20"><h1>{{ _('Delete') }}</h1></td>
+			<td width="60"><h1>id</h1></td>
+			<td><h1>filename</h1></td>
+			<td width="100"><h1>size</h1></td>
+			<td width="150"><h1>content-type</h1></td>
+			<td width="20"><h1>delete</h1></td>
 		</tr>
 		{% for file in files %}
 		<tr>
@@ -40,13 +39,12 @@
 		{% end %}
 		</table>
 	</div>
-	
+
 	{% if cursor %}
 	<div style="margin-top: 20px">
-		<a href="/media?cursor={{cursor}}">{{_('Next page')}}</a>
+		<a href="/media?cursor={{cursor}}">Next page</a>
 	</div>
 	{% end %}
-	</div>
 </div>
 
 {% end %}

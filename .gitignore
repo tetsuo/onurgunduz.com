@@ -1,2 +1,5 @@
 *.pyc
 lib
+node_modules
+npm-debug.log
+public/styles.css

@@ -19,6 +19,7 @@ class BaseModel(db.Model):
     def flush(cls, num_fetch=499):
         """Deletes all records of this kind."""
         keys = []
+
         while True:
             entities = cls.all(keys_only=True).fetch(num_fetch)
             if not entities:
@@ -26,11 +27,12 @@ class BaseModel(db.Model):
             else:
                 keys.extend(entities)
                 db.delete(entities)
+
         return keys
 
     def after_put(self):
         raise NotImplementedError
-    
+
     def before_put(self):
         raise NotImplementedError
 
@@ -39,19 +41,22 @@ class BaseModel(db.Model):
             self.before_put()
         except NotImplementedError:
             pass
+
         super(BaseModel, self).put(**kwargs)
+
         try:
             self.after_put()
         except NotImplementedError:
             pass
-        
+
     def delete(self, **kwargs):
         super(BaseModel, self).delete(**kwargs)
+
         try:
             self.after_put()
         except NotImplementedError:
             pass
-        
+
     @classmethod
     def get_by_key_name(cls, key_names, cached=False, parent=None, **kwargs):
         if isinstance(key_names, list) or not cached:
@@ -69,20 +74,20 @@ class BaseModel(db.Model):
             else:
                 result = utils.pb_deserialize(result)
         return result
-    
+
     @classmethod
     def _get_by_page(cls, page=1, limit=10):
         if not cls.properties().has_key('published'):
             raise Error, '_get_by_page method needs a \'published\' property.'
         if not isinstance(cls.properties()['published'], db.DateTimeProperty):
             raise Error, '\'published\' property must be a DateTimeProperty instance.'
-        
+
         def get_query(keys_only=False, cursor=None):
             query = db.Query(cls, keys_only=keys_only).order('-published')
             if cursor is not None:
                 query.with_cursor(cursor)
             return query
-        
+
         if page <= 1:
             q = get_query()
         else:
@@ -127,7 +132,7 @@ class BaseModel(db.Model):
                 if e:
                     more = True
                 else:
-                    more= False    
+                    more= False
         return entities, more
 
     @classmethod
@@ -143,7 +148,7 @@ class BaseModel(db.Model):
             memcache.set(key, dict(entities=utils.pb_serialize(entities),
                                    more=more))
             return entities, more
-            
+
 
 class Cursor(BaseModel):
     value = db.TextProperty(required=True)
@@ -156,7 +161,7 @@ class Entry(BaseModel):
     tags = db.ListProperty(db.Category)
     published = db.DateTimeProperty(auto_now_add=True)
     updated = db.DateTimeProperty(auto_now=True)
-    
+
     def url(self, query_args={}, absolute=False, path_prefix="/blog/"):
         url = path_prefix + self.key().name()
         if absolute:
@@ -164,10 +169,10 @@ class Entry(BaseModel):
         if query_args:
             url += "?" + urllib.urlencode(query_args)
         return url
-    
+
     def before_put(self):
         self.body_html = markdown2.markdown(self.body, safe_mode='escape')
-    
+
     def after_put(self):
         keys = ['entry/%s' % self.key().name(), 'sitemap.xml']
         cursor_keys = Cursor.flush()

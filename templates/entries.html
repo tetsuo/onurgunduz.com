@@ -1,80 +1,81 @@
+{% block extra_class %}home{% end %}
+
 {% extends "base.html" %}
 
 {% block content %}
-	{% block above_content %}{% end %}
-	
-	<div id="content" class="blog">
-	<div class="container">
-		
+
+{% block above_content %}
+<div class="double-col-no-gutter-grid intro">
+	<div class="col cover"></div>
+	<div class="col headline">
+		<h1>BONNE REIJN EN THEO WESSELO</h1>
+		<a href="#">
+			<p>Bonne maakt z'n zogenaamde 'working-man's suits' bij voorkeur van onbedrukte, effen canvas. Om preciezer te zijn: dezelfde stof die ik altijd gebruikte om mn schildersdoeken mee op te spannen.</p>
+		</a>
+	</div>
+</div>
+{% end %}
+
+<div class="single-col-grid content">
+
+	{% block above_body %}{% end %}
+
+	<div class="col">
+
 		{% for entry in entries %}
-		<div class="entry {% block entry_class %}{% end %}" id="e-{{ entry.key().name() }}">
-			<h1 class="y"><a href="/blog/{{ entry.key().name() }}">{{ escape(entry.title) }}</a></h1>
-			<div class="date y">{{ locale.format_date(entry.published, full_format=True, shorter=True) }}{% if entry.tags %} &mdash; {{ locale.list(['<a href="/tag/%(tag)s">%(escaped_tag)s</a>' % {"tag": tag, "escaped_tag": escape(tag)} for tag in sorted(entry.tags)]) }}{% end %}{% if current_user %} &mdash; <a href="/edit/{{ entry.key().name() }}">{{ _('Edit') }}</a> - <a class="delete_entry" href="/delete/{{ entry.key().name() }}">{{ _('Delete') }}</a>{% end %}</div>
-			<div class="body">{{ entry.body_html }}</div>
-			<div class="meta">
-				<div class="left">
-				    <div class="comments">
-				      <a href="/blog/{{ entry.key().name() }}#disqus_thread"><span></span></a>
-				    </div>
-				</div>
-				<div class="right">
-					<a class="retweet" href="http://{{request.host}}/blog/{{ entry.key().name() }}" title="{{ escape(entry.title) }}"></a>
-				</div>
+		<div class="centered entry" id="e-{{ entry.key().name() }}">
+
+			<div class="title">
+				<h1><a href="/blog/{{ entry.key().name() }}">{{ escape(entry.title) }}</a></h1>
 			</div>
-			
+
+			<div class="info">
+				{{ locale.format_date(entry.published, full_format=True, shorter=True) }}
+				{% if entry.tags %}
+					&mdash; {{ locale.list(['<a href="/tag/%(tag)s">%(escaped_tag)s</a>' % {"tag": tag, "escaped_tag": escape(tag)} for tag in sorted(entry.tags)]) }}{% end %}
+					{% if current_user %} &mdash; <a href="/edit/{{ entry.key().name() }}">Edit</a> - <a class="delete_entry" href="/delete/{{ entry.key().name() }}">Delete</a>
+				{% end %}
+			</div>
+
+			<div class="body">{{ entry.body_html }}</div>
+
 			{% if show_comments %}
-			<div id="disqus1">
+			<div class="discussion">
 				<div id="disqus_thread"></div>
 			</div>
 			{% end %}
-			
+
 		</div>
 		{% end %}
-	
+
 	</div>
-	</div>
-	
-	{% block below_content %}
-		{% if int(page) > 1 or more %}
-			<div class="row1 pagin"><div class="container">
-			{% if int(page) > 1 %}<a href="/blog/{{ int(page)-1 }}">{{_('Newer')}}</a>{% end %}
-			{% if more %}<a href="/blog/{{ int(page)+1 }}">{{_('Older')}}</a>{% end %}
-			</div></div>
+
+{% block below_content %}
+	{% if int(page) > 1 or more %}
+		{% if int(page) > 1 %}
+			<a href="/blog/{{ int(page)-1 }}">Newer</a>
+		{% end %}
+		{% if more %}
+			<a href="/blog/{{ int(page)+1 }}">Older</a>
 		{% end %}
 	{% end %}
-	
+{% end %}
+
+</div>
+
 {% end %}
 
 {% block bottom %}
-
 	{% if len(entries) > 0 %}
-		<script src="{{ static_url('retweet.js') }}" type="text/javascript"></script>
-	
-		<script type="text/javascript">
-		(function() {
-			var links = document.getElementsByTagName('a');
-			var query = '?';
-			for(var i = 0; i < links.length; i++) {
-				if(links[i].href.indexOf('#disqus_thread') >= 0) {
-					query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
-					links[i].childNodes[0].innerHTML = "<img src='/static/loader1.gif' />";
-				}
-			}
-			document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/onurgunduzcom/get_num_replies.js' + query + '"></' + 'script>');
-		})();
-		</script>
-    
 		{% if  show_comments %}
 			{% if handler.settings['debug'] %}
-			<script type="text/javascript"> 
+			<script type="text/javascript">
 				var disqus_developer = true;
 			</script>
-			{% end %} 
+			{% end %}
 			<script src="http://disqus.com/forums/onurgunduzcom/embed.js" type="text/javascript"></script>
 		{% end %}
-	
 	{% end %}
-	
 {% end %}
 
 {% block title %}blog{{ '/'+str(page) if int(page)!=1 else '' }} &mdash; {{ escape(handler.settings['title']) }}{% end %}

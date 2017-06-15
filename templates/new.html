@@ -1,40 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
-<div id="content" class="blog-new">
-	<div class="container">
-	
+<div class="single-col-grid content">
+	<div class="col">
+
 	{% if not key_name %}
-	<h1>{{ _('New entry') }}</h1>
+	<h1>New entry</h1>
 	{% else %}
-	<h1>{{_('Editing')}} <a href="/blog/{{ entry.key().name() }}">{{ escape(entry.title) }}</a></h1>
+	<h1>Editing <a href="/blog/{{ entry.key().name() }}">{{ escape(entry.title) }}</a></h1>
 	{% end %}
-	
+
+	<style>
+		.form1 table {
+			width: 100%;
+		}
+		.form1 table input[type=text], .form1 table textarea {
+			width: 80%;
+		}
+	</style>
+
 	<div class="form1">
 		<form id="new" method="post" action="{{ '/edit/' + escape(key_name) if key_name else "/new" }}" onsubmit="onSubmit();return false;">
 		<table>
 		       <tr>
-		       	<th><label for="title">{{ _('Title') }}:</label></th>
+		       	<th><label for="title">Title:</label></th>
 		       	<td><input type="text" id="title" name="title" value="{{ escape(entry.title) if entry else "" }}" ></input></td>
 		       </tr>
-		       <tr style="height: 3px"></tr>
+		       <tr></tr>
 		       <tr>
-		       	<th valign="top"><label for="body">{{ _('Body') }}:</label></th>
+		       	<th valign="top"><label for="body">Body:</label></th>
 		       	<td><textarea name="body" id="body">{{ escape(entry.body) if entry else "" }}</textarea>
-		       	<div style="margin-top: 3px;"><a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">{{ _('Syntax documentation') }}</a></div>
+		       	<div><a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Syntax documentation</a></div>
 		       	</td>
 		       </tr>
-		       <tr style="height: 3px"></tr>
+		       <tr></tr>
 		       <tr>
-		       	<th valign="top"><label for="tags">{{ _('Tags') }}:</label></th>
+		       	<th valign="top"><label for="tags">Tags:</label></th>
 		       	<td><input type="text" id="tags" name="tags" value="{{ escape(tags) if tags else "" }}" ></input>
-		       	<div style="margin-top: 3px;">{{ _('(Comma separated)') }}</div>
+		       	<div>(Comma separated)</div>
 		       	</td>
 		       </tr>
 		       <tr>
 	            <th></th>
 	            <td>
-	                <div style="margin-top: 10px;">
-	                    <input type="submit" value="{{ _('Save') if key_name else _('Publish') }}"/><a style="margin-left: .5em;" href="{{ "/blog/" + escape(key_name) if key_name else "/blog" }}">{{ _('cancel') }}</a>
+	                <div>
+	                    <input type="submit" value="{{ 'Save' if key_name else 'Publish' }}"/><a style="margin-left: .5em;" href="{{ "/blog/" + escape(key_name) if key_name else "/blog" }}">cancel</a>
 	                </div>
 	            </td>
 	        </tr>
@@ -46,21 +55,4 @@
 	</div>
 </div>
 
-{% end %}
-{% block bottom %}
-<script type="text/javascript">
-var form = document.getElementById('new');
-form[0].select();
-function onSubmit()
-{
-	var required = ['title', 'body'];
-    for (var i = 0; i < required.length; i++) {
-        if (!form[required[i]].value) {
-            form[required[i]].select();
-            return false;
-        }
-    }
-    form.submit();
-}
-</script>
 {% end %}

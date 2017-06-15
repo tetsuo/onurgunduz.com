@@ -1,0 +1,17 @@
+{
+  "name": "onurgunduz.com",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "repository": "git@github.com:tetsuo/onurgunduz.com.git",
+  "author": "tetsuo <ogunduz@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+	  "sass": "rm -f public/styles.css && node-sass styles.scss > public/styles.css && node-sass -w styles.scss -o public"
+  },
+  "dependencies": {
+    "bourbon-neat": "^2.0.0",
+    "node-sass": "^4.5.3",
+    "normalize-scss": "^7.0.0"
+  }
+}
