@@ -1,19 +1,23 @@
+{% block extra_class %}{% end %}
+
 {% extends "entries.html" %}
 
-{% block title %}
-    {{ escape(entries[0].title) }} &mdash; {{ escape(handler.settings['title']) }}
+{% block title %}{{ escape(entries[0].title) }} &mdash; {{ escape(handler.settings['title']) }}{% end %}
+
+{% block above_body %}
+<div class="single-col-grid">
+    <div class="col">
+        <div class="above-body">
+            <a href="/blog">home</a>
+        </div>
+    </div>
+</div>
 {% end %}
 
-{% block above_content %}
-	<div class="row1 pagin"><div class="container">
-		<a href="/blog">{{_('Back')}}</a>
-	</div></div>
-{% end %}
-
+{% block above_content %}{% end %}
 {% block below_content %}{% end %}
-{% block entry_class %}e-full{% end %}
 
 {% block head_extra %}
-<meta name="title" content="{{ escape(entries[0].title) }} &mdash; {{ escape(handler.settings["title"]) }}" />
+<meta name="title" content="{{ escape(entries[0].title) }} - {{ escape(handler.settings["title"]) }}" />
 <meta name="description" content="{{ escape(entries[0].title) }}" />
 {% end %}

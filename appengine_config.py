@@ -14,7 +14,7 @@ def appstats_should_record(env):
         if bool(re.match(regex, path_info)):
             return
     return True
-         
+
 def webapp_add_wsgi_middleware(app):
     if os.environ['SERVER_SOFTWARE'].startswith('Dev'):
         from google.appengine.ext.appstats import recording

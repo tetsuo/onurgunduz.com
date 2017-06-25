@@ -2,14 +2,14 @@ import pv
 import os
 
 settings = {
-    'title': 'onurgunduz.com',
-    'description': '',
-    'author': 'Onur Gunduz',
-    'static_path': os.path.join(os.path.dirname(__file__), "static"),
-    'template_path': os.path.join(os.path.dirname(__file__), "templates"),
-    'cookie_secret': 'secret',
-    'xsrf_cookies': True,
-    'debug': os.environ['SERVER_SOFTWARE'].startswith('Dev'),
+    "title": "onurgunduz.com",
+    "description": "my personal homepage",
+    "author": "Onur Gunduz",
+    "static_path": os.path.join(os.path.dirname(__file__), "public"),
+    "template_path": os.path.join(os.path.dirname(__file__), "templates"),
+    "cookie_secret": "secret",
+    "xsrf_cookies": True,
+    "debug": os.environ["SERVER_SOFTWARE"].startswith("Dev"),
 }
 
 url_mappings = [
@@ -23,10 +23,9 @@ url_mappings = [
     ("/media/?", "handlers.MediaHandler"),
     ("/media/upload/?", "handlers.MediaUploadHandler"),
     ("/media/delete/?", "handlers.MediaDeleteHandler"),
-    ("/file/{id:[0-9]+}/?", "handlers.MediaDownloadHandler"),  
+    ("/file/{id:[0-9]+}/?", "handlers.MediaDownloadHandler"),
     ("/login/?", "handlers.LoginHandler"),
     ("/logout/?", "handlers.LogoutHandler"),
-    ("/about/?", "handlers.AboutPageHandler"),             
     ("/opensearch.xml", "handlers.OpenSearchHandler"),
     ("/sitemap.xml", "handlers.SitemapHandler"),
     ("/feed/?", "pv.web.RedirectHandler", {"url": "/blog/?format=atom"}),

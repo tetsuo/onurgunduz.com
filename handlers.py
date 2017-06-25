@@ -108,7 +108,7 @@ class MediaHandler(BaseRequestHandler):
     def get(self):
         upload = self.request.get('upload', None)
         if upload:
-            self.render('media_upload.html',
+            self.render('upload.html',
                         form_url=blobstore.create_upload_url('/media/upload?_xsrf='+self.xsrf_token))
             return
         _limit = 30
@@ -261,12 +261,6 @@ class DeleteEntryHandler(BaseRequestHandler):
         if entry:
             entry.delete()
         self.redirect('/')
-
-
-class AboutPageHandler(BaseRequestHandler):
-    @pv.web.removeslash
-    def get(self):
-        self.render('about.html')
 
 
 class OpenSearchHandler(BaseRequestHandler):
