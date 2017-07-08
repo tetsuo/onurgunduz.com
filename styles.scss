@@ -231,14 +231,24 @@ h1, h2, h3 {
         }
 
         code {
+            background-color: #f5f5f5;
+            padding: 1px 4px 1px 4px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        pre code {
+            border: none;
+            border-radius: 0px;
             white-space: pre;
             background-color: #0000ff;
             display: block;
             color: #fff;
             margin: 0;
             padding: 1.5em;
-            font-size: .8em;
-            font-family: menloregular;
+            line-height: 1.4em;
+            font-size: 1.078em;
+            font-family: menloregular!important;
             border-top: 40px solid #ddd;
             box-shadow: inset 5px 4px orange;
             overflow-x: scroll;

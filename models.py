@@ -171,7 +171,7 @@ class Entry(BaseModel):
         return url
 
     def before_put(self):
-        self.body_html = markdown2.markdown(self.body, safe_mode='escape')
+        self.body_html = markdown2.markdown(self.body, safe_mode='escape', extras=["fenced-code-blocks"])
 
     def after_put(self):
         keys = ['entry/%s' % self.key().name(), 'sitemap.xml']
