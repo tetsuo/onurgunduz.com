@@ -246,12 +246,15 @@ h1, h2, h3 {
             color: #fff;
             margin: 0;
             padding: 1.5em;
-            line-height: 1.4em;
-            font-size: 1.078em;
             font-family: menloregular!important;
             border-top: 40px solid #ddd;
             box-shadow: inset 5px 4px orange;
             overflow-x: scroll;
+            line-height: 1.4em;
+            font-size: 0.9em;
+            @include grid-media($single-col-grid-tablet-up) {
+                font-size: 1.078em;
+            }
         }
 
         h2 {
@@ -362,6 +365,7 @@ h1, h2, h3 {
         font-family: proxima-nova;
         color: #fff;
         font-size: 1em;
+        line-height: 1.26em;
 
         @include grid-media($single-col-grid-tablet-up) {
             font-size: 1.5em;
