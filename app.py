@@ -2,9 +2,9 @@ import pv
 import os
 
 settings = {
-    "title": "onurgunduz.com",
-    "description": "my personal homepage",
-    "author": "Onur Gunduz",
+    "title": "@xxy998",
+    "description": "updates & geschriften",
+    "author": "@xxy998",
     "static_path": os.path.join(os.path.dirname(__file__), "public"),
     "template_path": os.path.join(os.path.dirname(__file__), "templates"),
     "cookie_secret": "secret",
