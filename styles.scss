@@ -216,7 +216,7 @@ h1, h2, h3 {
             color: #111;
             font-size: 1.16em;
             @include grid-media($single-col-grid-tablet-up) {
-                font-size: 1.34em;
+                font-size: 20px;
             }
             font-style: normal;
             font-weight: normal;
