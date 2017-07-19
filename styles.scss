@@ -8,7 +8,7 @@
     src: url("#{$file}.eot?#iefix") format("embedded-opentype"), url("#{$file}.woff") format("woff"), url("#{$file}.ttf") format("truetype"), url("#{$file}.svg##{$file}") format("svg");
     @if $name == 'italic' {
         font-style: italic;
-    } else {
+    } @else {
         font-weight: normal;
         font-style: normal;
     }
